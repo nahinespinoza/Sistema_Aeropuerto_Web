@@ -1,6 +1,7 @@
 package com.example.SistemaAeropuerto.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vuelos")
@@ -10,36 +11,64 @@ public class Vuelo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 20)
-    private String numeroVuelo;     // ejm: "AV123"
+    @Column(nullable = false, unique = true, length = 20)
+    private String numeroVuelo;
 
-    @Column(nullable = false, length = 50)
-    private String aerolinea;      
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aerolinea_id", nullable = false)
+    private Aerolinea aerolinea;
 
-    @Column(nullable = false)
-    private Double distancia;       // En km
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "aeronave_id", nullable = false)
+    private Aeronave aeronave;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "origen_id", nullable = false)
     private Aeropuerto origen;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "destino_id", nullable = false)
     private Aeropuerto destino;
 
-    // Constructores
+    @Column(nullable = false)
+    private LocalDateTime horaSalida;
+
+    @Column(nullable = false)
+    private LocalDateTime horaLlegada;
+
+    @Column(nullable = false)
+    private Double distancia;
+
+    @Column(nullable = false)
+    private Boolean activo = true;
+
+    // Constructor vacío requerido por JPA
     public Vuelo() {
     }
 
-    public Vuelo(String numeroVuelo, String aerolinea, Double distancia, Aeropuerto origen, Aeropuerto destino) {
+    // Constructor
+    public Vuelo(String numeroVuelo,
+                 Aerolinea aerolinea,
+                 Aeronave aeronave,
+                 Aeropuerto origen,
+                 Aeropuerto destino,
+                 LocalDateTime horaSalida,
+                 LocalDateTime horaLlegada,
+                 Double distancia) {
+
         this.numeroVuelo = numeroVuelo;
         this.aerolinea = aerolinea;
-        this.distancia = distancia;
+        this.aeronave = aeronave;
         this.origen = origen;
         this.destino = destino;
+        this.horaSalida = horaSalida;
+        this.horaLlegada = horaLlegada;
+        this.distancia = distancia;
+        this.activo = true;
     }
 
     // Getters y Setters
+
     public Long getId() {
         return id;
     }
@@ -56,20 +85,20 @@ public class Vuelo {
         this.numeroVuelo = numeroVuelo;
     }
 
-    public String getAerolinea() {
+    public Aerolinea getAerolinea() {
         return aerolinea;
     }
 
-    public void setAerolinea(String aerolinea) {
+    public void setAerolinea(Aerolinea aerolinea) {
         this.aerolinea = aerolinea;
     }
 
-    public Double getDistancia() {
-        return distancia;
+    public Aeronave getAeronave() {
+        return aeronave;
     }
 
-    public void setDistancia(Double distancia) {
-        this.distancia = distancia;
+    public void setAeronave(Aeronave aeronave) {
+        this.aeronave = aeronave;
     }
 
     public Aeropuerto getOrigen() {
@@ -86,6 +115,38 @@ public class Vuelo {
 
     public void setDestino(Aeropuerto destino) {
         this.destino = destino;
+    }
+
+    public LocalDateTime getHoraSalida() {
+        return horaSalida;
+    }
+
+    public void setHoraSalida(LocalDateTime horaSalida) {
+        this.horaSalida = horaSalida;
+    }
+
+    public LocalDateTime getHoraLlegada() {
+        return horaLlegada;
+    }
+
+    public void setHoraLlegada(LocalDateTime horaLlegada) {
+        this.horaLlegada = horaLlegada;
+    }
+
+    public Double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(Double distancia) {
+        this.distancia = distancia;
+    }
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
     }
 
     @Override
