@@ -1,0 +1,61 @@
+/* ==================== Estilos generales ==================== */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navbar activo */
+.navbar-nav .nav-link.active {
+    font-weight: 600;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* Cards */
+.card {
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Tablas */
+.table th {
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6c757d;
+}
+
+/* Badges de código */
+.badge.fs-6 {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+/* Formulario de flota dinámica */
+.avion-row {
+    transition: background-color 0.2s;
+}
+
+.avion-row:hover {
+    background-color: #e9ecef !important;
+}
+
+/* Footer fijo abajo */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+    .btn-group-sm .btn {
+        padding: 0.25rem 0.4rem;
+    }
+}
