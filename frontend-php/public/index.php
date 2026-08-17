@@ -69,9 +69,15 @@ try {
 
         case 'vuelos':
             $controller = new VueloController();
+            $action = $_GET['action'] ?? 'index';
+            
             match ($action) {
-                'show'  => $controller->show(),
-                default => $controller->index(),
+                    'create'     => $controller->create(),
+                    'store'      => $controller->store(),
+                    'show'       => $controller->show(),
+                    'desactivar' => $controller->desactivar(),
+                    'flota'      => $controller->flota(),
+                    default      => $controller->index(),
             };
             break;
 

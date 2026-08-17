@@ -112,4 +112,39 @@ class ApiClient
             'error'   => ($httpCode >= 400) ? ($data['error'] ?? 'Error del servidor') : null
         ];
     }
+
+    public function postForm(string $endpoint, array $params = []): array
+{
+    $url = $this->baseUrl . $endpoint;
+
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query($params),
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/x-www-form-urlencoded',
+            'Accept: application/json'
+        ]
+    ]);
+
+    $response = curl_exec($ch);
+    $code     = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $error    = curl_error($ch);
+    curl_close($ch);
+
+    if ($error) {
+        return ['success' => false, 'status' => 0, 'error' => $error, 'data' => null];
+    }
+
+    $data = json_decode($response, true);
+
+    return [
+        'success' => $code >= 200 && $code < 300,
+        'status'  => $code,
+        'data'    => $data,
+        'error'   => ($code >= 200 && $code < 300) ? null : ($data['message'] ?? $data['error'] ?? $response)
+    ];
+}
+    
 }

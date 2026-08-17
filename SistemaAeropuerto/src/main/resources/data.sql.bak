@@ -1,0 +1,13 @@
+-- Aeropuertos
+INSERT INTO aeropuertos (codigo, nombre, ciudad, pais) VALUES
+('GYE', 'José Joaquín de Olmedo', 'Guayaquil', 'Ecuador'),
+('UIO', 'Mariscal Sucre', 'Quito', 'Ecuador'),
+('MEX', 'Aeropuerto Internacional de la Ciudad de México', 'Ciudad de México', 'México'),
+('BOG', 'El Dorado', 'Bogotá', 'Colombia'),
+('MAD', 'Adolfo Suárez Madrid-Barajas', 'Madrid', 'España');
+
+-- Aerolíneas
+INSERT INTO aerolineas (codigo, nombre, pais) VALUES
+('AV', 'Avianca', 'Colombia'),
+('LA', 'LATAM', 'Chile'),
+('EQ', 'Equair', 'Ecuador');
